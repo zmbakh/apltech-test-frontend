@@ -47,7 +47,7 @@ export function useProductUpdate() {
     ) as ProductPatch
   }
 
-  const submit = async(): Promise<void> => {
+  const submit = async (): Promise<void> => {
     const diff = changedFields()
     if (Object.keys(diff).length === 0) return
     try {

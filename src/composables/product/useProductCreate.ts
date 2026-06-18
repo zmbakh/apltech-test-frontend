@@ -18,7 +18,7 @@ export function useProductCreate() {
 
   const { loading, error, fieldErrors, execute } = useAsync(productRepository.create)
 
-  const submit = async(): Promise<void> => {
+  const submit = async (): Promise<void> => {
     try {
       const created = await execute({ ...fields } as ProductInput)
       router.push({ name: 'product', params: { id: created.id } })
