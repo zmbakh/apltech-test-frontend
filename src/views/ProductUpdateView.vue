@@ -3,27 +3,27 @@ import { useRoute } from 'vue-router'
 import { useTemplateRef } from 'vue'
 import type { ComponentExposed } from 'vue-component-type-helpers'
 import ProductUpdateForm from '@/components/ProductUpdateForm.vue'
+import { NCard, NAlert } from 'naive-ui'
 
 const route = useRoute()
-
 const productUpdateFormRef =
   useTemplateRef<ComponentExposed<typeof ProductUpdateForm>>('productUpdateFormRef')
 </script>
 
 <template>
-  <h1>Редактировать товар #{{ route.params.id }}</h1>
-
-  <div
-    v-if="productUpdateFormRef?.loadError || productUpdateFormRef?.saveError"
-    class="alert error"
-  >
-    <div>
-      {{ productUpdateFormRef.loadError }}
-    </div>
-    <div>
-      {{ productUpdateFormRef.saveError }}
-    </div>
-  </div>
-
-  <ProductUpdateForm ref="productUpdateFormRef" />
+  <NCard :title="`Редактировать товар #${route.params.id}`" style="max-width: 540px">
+    <NAlert
+      v-if="productUpdateFormRef?.loadError"
+      type="error"
+      :title="productUpdateFormRef.loadError"
+      style="margin-bottom: 8px"
+    />
+    <NAlert
+      v-if="productUpdateFormRef?.saveError"
+      type="error"
+      :title="productUpdateFormRef.saveError"
+      style="margin-bottom: 16px"
+    />
+    <ProductUpdateForm ref="productUpdateFormRef" />
+  </NCard>
 </template>

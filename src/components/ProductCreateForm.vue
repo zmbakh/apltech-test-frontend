@@ -1,58 +1,67 @@
 <script setup lang="ts">
 import { useProductCreate } from '@/composables/product/useProductCreate.js'
+import { NForm, NFormItem, NInput, NInputNumber, NSelect, NButton } from 'naive-ui'
 
 const { fields, submit, error, fieldErrors, loading } = useProductCreate()
 
-defineExpose({
-  error,
-})
+const statusOptions = [
+  { label: 'В наличии', value: 1 },
+  { label: 'Под заказ', value: 2 },
+]
+
+defineExpose({ error })
 </script>
 
 <template>
-  <div class="form">
-    <label>
-      Название *
-      <input v-model="fields.name" type="text" />
-      <span v-if="fieldErrors?.name" class="field-error">{{ fieldErrors.name }}</span>
-    </label>
+  <NForm>
+    <NFormItem
+      label="Название *"
+      :validation-status="fieldErrors.name ? 'error' : undefined"
+      :feedback="fieldErrors.name"
+    >
+      <NInput v-model:value="fields.name" />
+    </NFormItem>
 
-    <label>
-      Категория
-      <input v-model="fields.category_name" type="text" />
-      <span v-if="fieldErrors?.category_name" class="field-error">{{
-        fieldErrors.category_name
-      }}</span>
-    </label>
+    <NFormItem
+      label="Категория"
+      :validation-status="fieldErrors.category_name ? 'error' : undefined"
+      :feedback="fieldErrors.category_name"
+    >
+      <NInput v-model:value="fields.category_name" clearable />
+    </NFormItem>
 
-    <label>
-      Бренд
-      <input v-model="fields.brand_name" type="text" />
-      <span v-if="fieldErrors?.brand_name" class="field-error">{{ fieldErrors.brand_name }}</span>
-    </label>
+    <NFormItem
+      label="Бренд"
+      :validation-status="fieldErrors.brand_name ? 'error' : undefined"
+      :feedback="fieldErrors.brand_name"
+    >
+      <NInput v-model:value="fields.brand_name" clearable />
+    </NFormItem>
 
-    <label>
-      Цена *
-      <input v-model.number="fields.price" type="number" min="1" />
-      <span v-if="fieldErrors?.price" class="field-error">{{ fieldErrors.price }}</span>
-    </label>
+    <NFormItem
+      label="Цена *"
+      :validation-status="fieldErrors.price ? 'error' : undefined"
+      :feedback="fieldErrors.price"
+    >
+      <NInputNumber v-model:value="fields.price" :min="1" style="width: 100%" />
+    </NFormItem>
 
-    <label>
-      РРЦ
-      <input v-model.number="fields.rrp_price" type="number" min="1" />
-      <span v-if="fieldErrors?.rrp_price" class="field-error">{{ fieldErrors.rrp_price }}</span>
-    </label>
+    <NFormItem
+      label="РРЦ"
+      :validation-status="fieldErrors.rrp_price ? 'error' : undefined"
+      :feedback="fieldErrors.rrp_price"
+    >
+      <NInputNumber v-model:value="fields.rrp_price" :min="1" clearable style="width: 100%" />
+    </NFormItem>
 
-    <label>
-      Статус
-      <select v-model.number="fields.status">
-        <option :value="1">В наличии</option>
-        <option :value="2">Под заказ</option>
-      </select>
-      <span v-if="fieldErrors?.status" class="field-error">{{ fieldErrors.status }}</span>
-    </label>
+    <NFormItem
+      label="Статус"
+      :validation-status="fieldErrors.status ? 'error' : undefined"
+      :feedback="fieldErrors.status"
+    >
+      <NSelect v-model:value="fields.status" :options="statusOptions" />
+    </NFormItem>
 
-    <button :disabled="loading" @click="submit()">
-      {{ loading ? 'Сохранение…' : 'Создать' }}
-    </button>
-  </div>
+    <NButton type="primary" :loading="loading" @click="submit()">Создать</NButton>
+  </NForm>
 </template>
