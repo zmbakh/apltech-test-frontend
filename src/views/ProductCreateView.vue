@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useTemplateRef } from 'vue'
 import type { ComponentExposed } from 'vue-component-type-helpers'
-import type ProductCreateForm from '@/components/ProductCreateForm.vue'
+import ProductCreateForm from '@/components/ProductCreateForm.vue'
 
 const productCreateFormRef =
   useTemplateRef<ComponentExposed<typeof ProductCreateForm>>('productCreateFormRef')

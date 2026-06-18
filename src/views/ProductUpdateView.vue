@@ -2,7 +2,7 @@
 import { useRoute } from 'vue-router'
 import { useTemplateRef } from 'vue'
 import type { ComponentExposed } from 'vue-component-type-helpers'
-import type ProductUpdateForm from '@/components/ProductUpdateForm.vue'
+import ProductUpdateForm from '@/components/ProductUpdateForm.vue'
 
 const route = useRoute()
 
